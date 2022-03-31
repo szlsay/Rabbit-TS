@@ -1,7 +1,11 @@
-<template>
-  <div>layout组件</div>
-</template>
+<script setup lang="ts" name="Layout">
+import AppTopnav from './components/app-topnav.vue'
+</script>
 
-<script setup lang="ts"></script>
+<template>
+  <div>
+    <app-topnav></app-topnav>
+  </div>
+</template>
 
 <style lang="less" scoped></style>
