@@ -1,11 +1,23 @@
 <script lang="ts" setup name="HomeCategory">
 import useStore from '@/store'
+import { computed, ref } from 'vue'
 const { category } = useStore()
+// 1. 记录移到了哪个分类上，记录对应的id
+const categoryId = ref('')
+// 2. 计算属性得到当前的显示的商品
+const goods = computed(() => {
+  return category.list.find((item) => item.id === categoryId.value)?.goods
+})
 </script>
 <template>
-  <div class="home-category">
+  <div class="home-category" @mouseleave="categoryId = ''">
     <ul class="menu">
-      <li v-for="item in category.list" :key="item.id">
+      <li
+        v-for="item in category.list"
+        :key="item.id"
+        @mouseenter="categoryId = item.id"
+        :class="{ active: categoryId === item.id }"
+      >
         <!-- 一级分类 -->
         <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         <!-- 二级分类 -->
@@ -18,6 +30,22 @@ const { category } = useStore()
         </RouterLink>
       </li>
     </ul>
+    <!-- 弹层 -->
+    <div class="layer">
+      <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+      <ul>
+        <li v-for="item in goods" :key="item.id">
+          <RouterLink :to="`/goods/${item.id}`">
+            <img :src="item.picture" alt="" />
+            <div class="info">
+              <p class="name ellipsis-2">{{ item.name }}</p>
+              <p class="desc ellipsis">{{ item.desc }}</p>
+              <p class="price"><i>¥</i>{{ item.price }}</p>
+            </div>
+          </RouterLink>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
