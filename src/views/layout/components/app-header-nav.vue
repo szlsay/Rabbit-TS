@@ -1,7 +1,8 @@
 <script lang="ts" setup name="AppHeaderNav">
 import useStore from '@/store'
 const { category } = useStore()
-console.log(category.count)
+// console.log(category.count)
+category.getAllCategory()
 </script>
 
 <template>
