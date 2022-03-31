@@ -1,28 +1,37 @@
 <script lang="ts" setup>
-// import { useIntersectionObserver } from '@vueuse/core'
-// import { ref } from 'vue'
-// const target = ref<HTMLImageElement | null>(null)
-// // stop停止监听
-// const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
-//   console.log('执行了')
-//   console.log(isIntersecting)
-
 import { ref } from 'vue'
 
-//   if (isIntersecting) {
-//     target.value!.src =
-//       'https://yanxuan-item.nosdn.127.net/79f289a4e975fd030d5c37b98b9282c5.jpg'
-//     stop()
-//   }
-// })
-const url = ref(
-  'https://yanxuan-item.nosdn.127.ne123123t/79f289a4e975fd030d5c37b98b9282c5.jpg'
-)
+const show = ref(true)
 </script>
 
 <template>
-  <div style="height: 10px"></div>
-  <img v-lazy="url" alt="" />
+  <button @click="show = !show">切换</button>
+  <Transition name="aa">
+    <div class="box" v-if="show">123</div>
+  </Transition>
 </template>
 
-<style scoed lang="less"></style>
+<style scoped lang="less">
+.box {
+  width: 40px;
+}
+
+.aa-enter-active {
+  animation: heartBeat 0.3s linear;
+}
+.aa-leave-active {
+  animation: heartBeat 0.3s linear reverse;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
