@@ -5,6 +5,8 @@ import 'normalize.css'
 // 引入项目中一些通用样式
 import '@/assets/styles/common.less'
 import router from '@/router'
+import { createPinia } from 'pinia'
 const app = createApp(App)
 app.use(router)
+app.use(createPinia())
 app.mount('#app')
