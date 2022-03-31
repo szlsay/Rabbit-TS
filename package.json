@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^8.2.2",
     "axios": "^0.26.1",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.12",
