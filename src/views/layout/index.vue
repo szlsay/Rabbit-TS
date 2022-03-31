@@ -8,6 +8,10 @@ import AppFooter from './components/app-footer.vue'
   <div>
     <app-topnav></app-topnav>
     <app-header></app-header>
+    <div class="app-body">
+      <!-- 路由出口 -->
+      <RouterView></RouterView>
+    </div>
     <app-footer></app-footer>
   </div>
 </template>
