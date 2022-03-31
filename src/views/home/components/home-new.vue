@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import useStore from '@/store'
-// import { useLazyData } from '@/utils/hooks'
+import { useLazyData } from '@/utils/hooks'
 import HomePanel from './home-panel.vue'
-// import HomeSkeleton from './home-skeleton.vue'
+import HomeSkeleton from './home-skeleton.vue'
 const { home } = useStore()
-home.getNewList()
-// const target = useLazyData(() => {
-//   home.getNewList()
-// })
+const target = useLazyData(() => {
+  home.getNewList()
+})
 </script>
 <template>
   <div class="home-new">
@@ -15,20 +14,18 @@ home.getNewList()
       <template #right><XtxMore /></template>
       <!-- 面板内容 -->
       <!-- Transition TransitionGroup -->
-      <!-- <Transition name="fade"> -->
-      <!-- {{ home.newGoodList }} -->
-      <!-- <ul class="goods-list" v-if="home.newGoodList.length > 0"> -->
-      <ul class="goods-list">
-        <li v-for="item in home.newGoodList" :key="item.id">
-          <RouterLink to="/">
-            <img v-lazy="item.picture" alt="" />
-            <p class="name ellipsis">{{ item.name }}</p>
-            <p class="price">&yen;{{ item.price }}</p>
-          </RouterLink>
-        </li>
-      </ul>
-      <!-- <HomeSkeleton v-else></HomeSkeleton> -->
-      <!-- </Transition> -->
+      <Transition name="fade">
+        <ul class="goods-list" v-if="home.newGoodList.length > 0">
+          <li v-for="item in home.newGoodList" :key="item.id">
+            <RouterLink to="/">
+              <img v-lazy="item.picture" alt="" />
+              <p class="name ellipsis">{{ item.name }}</p>
+              <p class="price">&yen;{{ item.price }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <HomeSkeleton v-else></HomeSkeleton>
+      </Transition>
     </HomePanel>
   </div>
 </template>

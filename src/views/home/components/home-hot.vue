@@ -2,15 +2,14 @@
 import useStore from '@/store'
 // import { useIntersectionObserver } from '@vueuse/core'
 // import { ref } from 'vue'
-// import { useLazyData } from '@/utils/hooks'
+import { useLazyData } from '@/utils/hooks'
 import HomePanel from './home-panel.vue'
-// import HomeSkeleton from './home-skeleton.vue'
+import HomeSkeleton from './home-skeleton.vue'
 const { home } = useStore()
-home.getHotList()
-// const target = useLazyData(() => {
-//   // console.log('加载数据')
-//   home.getHotList()
-// })
+const target = useLazyData(() => {
+  // console.log('加载数据')
+  home.getHotList()
+})
 // const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
 //   if (isIntersecting) {
 //     home.getHotList()
@@ -30,7 +29,7 @@ home.getHotList()
           </RouterLink>
         </li>
       </ul>
-      <!-- <HomeSkeleton v-else></HomeSkeleton> -->
+      <HomeSkeleton v-else></HomeSkeleton>
     </Transition>
   </HomePanel>
 </template>
