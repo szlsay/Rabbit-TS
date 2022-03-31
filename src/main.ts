@@ -6,7 +6,9 @@ import 'normalize.css'
 import '@/assets/styles/common.less'
 import router from '@/router'
 import { createPinia } from 'pinia'
+import XtxUI from '@/components'
 const app = createApp(App)
 app.use(router)
+app.use(XtxUI)
 app.use(createPinia())
 app.mount('#app')

@@ -21,13 +21,30 @@ const goods = computed(() => {
         <!-- 一级分类 -->
         <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         <!-- 二级分类 -->
-        <RouterLink
-          :to="`/category/sub/${sub.id}`"
-          v-for="sub in item.children?.slice(0, 2)"
-          :key="sub.id"
-        >
-          {{ sub.name }}
-        </RouterLink>
+        <template v-if="item.children">
+          <RouterLink
+            :to="`/category/sub/${sub.id}`"
+            v-for="sub in item.children?.slice(0, 2)"
+            :key="sub.id"
+          >
+            {{ sub.name }}
+          </RouterLink>
+        </template>
+        <template v-else>
+          <XtxSkeleton
+            :width="60"
+            :height="18"
+            style="margin-right: 5px"
+            bg="rgba(255,255,255,0.2)"
+            fade
+          />
+          <XtxSkeleton
+            :width="50"
+            :height="18"
+            bg="rgba(255,255,255,0.2)"
+            fade
+          />
+        </template>
       </li>
     </ul>
     <!-- 弹层 -->
