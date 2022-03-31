@@ -1,8 +1,35 @@
-<script lang="ts" name="TopCategory" setup></script>
+<script lang="ts" name="TopCategory" setup>
+import { useRoute } from 'vue-router'
+import useStore from '@/store'
+import { watch, watchEffect } from 'vue'
+const route = useRoute()
+const { category } = useStore()
+
+watch(
+  () => route.params.id,
+  (value) => {
+    console.log('change:', value)
+    category.getTopCategory(route.params.id as string)
+  },
+  {
+    immediate: true,
+  }
+)
+
+// watchEffect(() => {
+//   const id = route.params.id as string
+//   if(route.fullPath === `/cat`)
+// })
+</script>
 
 <template>
   <div class="top-category">
-    <div class="container">分类组件</div>
+    <div class="container">
+      <XtxBread>
+        <XtxBreadItem to="/">首页</XtxBreadItem>
+        <XtxBreadItem>{{ category.topCategory.name }}</XtxBreadItem>
+      </XtxBread>
+    </div>
   </div>
 </template>
 
