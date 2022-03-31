@@ -15,9 +15,19 @@ export default defineStore('category', {
   actions: {
     async getAllCategory() {
       const res = await request.get<ApiRes<CategoryItem[]>>('/home/category/head')
-      console.log(res)
+      res.data.result.forEach((item) => { 
+        item.open = false
+      })
       this.list = res.data.result
     },
+    show(id: string) { 
+      const category = this.list.find((item) => item.id === id)
+      category!.open = true
+    },
+    hide(id: string) { 
+      const category = this.list.find((item) => item.id === id)
+      category!.open = false
+    }
   },
 
 })

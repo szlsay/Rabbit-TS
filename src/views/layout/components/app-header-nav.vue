@@ -1,20 +1,31 @@
 <script lang="ts" setup name="AppHeaderNav">
 import useStore from '@/store'
 const { category } = useStore()
-// console.log(category.count)
 category.getAllCategory()
 </script>
 
 <template>
   <ul class="app-header-nav">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in category.list" :key="item.id">
-      <router-link :to="`/category/${item.id}`">{{ item.name }}</router-link>
+    <li
+      v-for="item in category.list"
+      :key="item.id"
+      @mousemove="category.show(item.id)"
+      @mouseleave="category.hide(item.id)"
+    >
+      <router-link
+        @click="category.hide(item.id)"
+        :to="`/category/${item.id}`"
+        >{{ item.name }}</router-link
+      >
       <!-- 新增++++++++ -->
-      <div class="layer">
+      <div class="layer" :class="{ open: item.open }">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <router-link :to="`/category/sub/${sub.id}`">
+            <router-link
+              @click="category.hide(item.id)"
+              :to="`/category/sub/${sub.id}`"
+            >
               <img :src="sub.picture" alt="" />
               <p>{{ sub.name }}</p>
             </router-link>
@@ -44,10 +55,10 @@ category.getAllCategory()
       line-height: 32px;
       height: 32px;
       display: inline-block;
-      &:hover {
-        color: @xtxColor;
-        border-bottom: 1px solid @xtxColor;
-      }
+      // &:hover {
+      //   color: @xtxColor;
+      //   border-bottom: 1px solid @xtxColor;
+      // }
     }
     // 新增样式
     &:hover {
@@ -55,10 +66,10 @@ category.getAllCategory()
         color: @xtxColor;
         border-bottom: 1px solid @xtxColor;
       }
-      > .layer {
-        height: 132px;
-        opacity: 1;
-      }
+      // > .layer {
+      //   height: 132px;
+      //   opacity: 1;
+      // }
     }
   }
 }
