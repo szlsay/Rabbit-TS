@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 import useStore from '@/store'
 import { watch, watchEffect } from 'vue'
 const route = useRoute()
-const { category } = useStore()
+const { category, home } = useStore()
 
 // watch(
 //   () => route.params.id,
@@ -17,8 +17,15 @@ const { category } = useStore()
 // )
 
 watchEffect(() => {
+  // 只有是一级分类的情况下，才发送这个请求
+  // console.log(route.fullPath)
   const id = route.params.id as string
-  category.getTopCategory(id)
+  // console.log(route.fullPath, '=====', `/category/${id}`)
+  if (route.fullPath === `/category/${id}`) {
+    category.getTopCategory(id)
+    // 应该需要发送请求，获取分类页的轮播图数据
+    home.getBannerList()
+  }
 })
 </script>
 
@@ -29,6 +36,13 @@ watchEffect(() => {
         <XtxBreadItem to="/">首页</XtxBreadItem>
         <XtxBreadItem>{{ category.topCategory.name }}</XtxBreadItem>
       </XtxBread>
+
+      <!-- 轮播图 -->
+      <XtxCarousel
+        :slides="home.bannerList"
+        style="height: 500px"
+        auto-play
+      ></XtxCarousel>
     </div>
   </div>
 </template>
