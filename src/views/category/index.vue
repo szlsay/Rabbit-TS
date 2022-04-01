@@ -5,21 +5,21 @@ import { watch, watchEffect } from 'vue'
 const route = useRoute()
 const { category } = useStore()
 
-watch(
-  () => route.params.id,
-  (value) => {
-    console.log('change:', value)
-    category.getTopCategory(route.params.id as string)
-  },
-  {
-    immediate: true,
-  }
-)
+// watch(
+//   () => route.params.id,
+//   (value) => {
+//     console.log('change:', value)
+//     category.getTopCategory(route.params.id as string)
+//   },
+//   {
+//     immediate: true,
+//   }
+// )
 
-// watchEffect(() => {
-//   const id = route.params.id as string
-//   if(route.fullPath === `/cat`)
-// })
+watchEffect(() => {
+  const id = route.params.id as string
+  category.getTopCategory(id)
+})
 </script>
 
 <template>

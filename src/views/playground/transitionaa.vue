@@ -1,19 +1,14 @@
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 
-const money = ref(100)
-const name = ref('zs')
-
-watchEffect(() => {
-  console.log(name.value, '变化了')
-  console.log(money.value, '变化了')
-})
+const show = ref(true)
 </script>
 
 <template>
-  <h3>哈哈哈</h3>
-  <button @click="money++">加钱</button>
-  <button @click="name = 'ls'">改名</button>
+  <button @click="show = !show">切换</button>
+  <Transition name="aa">
+    <div class="box" v-if="show">123</div>
+  </Transition>
 </template>
 
 <style scoped lang="less">
