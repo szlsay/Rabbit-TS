@@ -1,8 +1,90 @@
-<script lang="ts" setup name="SubCategory"></script>
+<script lang="ts" setup name="SubCategory">
+import useStore from '@/store'
+import GoodsItem from './components/goods-item.vue'
+import { watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
+
+// 1. 通过route获取到当前二级分类的id
+// 2. 根据二级分类的id去list中查找对应的二级分类以及一级分类
+const { category } = useStore()
+const route = useRoute()
+
+// 二级分类需要发送请求
+watchEffect(() => {
+  const id = route.params.id as string
+  if (route.fullPath === `/category/sub/${id}`) {
+    category.getSubCategory(id)
+  }
+})
+</script>
 
 <template>
   <div class="sub-category">
-    <div class="container">二级分类组件</div>
+    <div class="container">
+      <!-- 面包屑 -->
+      <XtxBread>
+        <XtxBreadItem to="/">首页</XtxBreadItem>
+        <XtxBreadItem :to="`/category/${category.subCategory.parentId}`">
+          {{ category.subCategory.parentName }}
+        </XtxBreadItem>
+        <XtxBreadItem>{{ category.subCategory.name }}</XtxBreadItem>
+      </XtxBread>
+      <!-- 筛选区 -->
+      <div class="sub-filter">
+        <div class="item">
+          <div class="head">品牌：</div>
+          <div class="body">
+            <a href="javascript:;">全部</a>
+            <a
+              href="javascript:;"
+              v-for="item in category.subCategory.brands"
+              :key="item.id"
+              >{{ item.name }}</a
+            >
+          </div>
+        </div>
+        <div
+          class="item"
+          v-for="item in category.subCategory.saleProperties"
+          :key="item.id"
+        >
+          <div class="head">{{ item.name }}：</div>
+          <div class="body">
+            <a href="javascript:;">全部</a>
+            <a
+              href="javascript:;"
+              v-for="sub in item.properties"
+              :key="sub.id"
+              >{{ sub.name }}</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- 商品区域 -->
+      <div class="goods-list">
+        <!-- 排序区域 -->
+        <div class="sub-sort">
+          <div class="sort">
+            <a href="javascript:;" class="active">默认排序</a>
+            <a href="javascript:;">最新商品</a>
+            <a href="javascript:;">最高人气</a>
+            <a href="javascript:;">评论最多</a>
+            <a href="javascript:;">
+              价格排序
+              <i class="arrow up" />
+              <i class="arrow down" />
+            </a>
+          </div>
+        </div>
+        <!-- 商品列表 -->
+        <ul>
+          <li v-for="goods in category.subCategory.goods" :key="goods.id">
+            <GoodsItem :goods="goods" />
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
