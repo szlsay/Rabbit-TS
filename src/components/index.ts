@@ -7,6 +7,9 @@ import XtxBread from './bread/index.vue'
 import XtxBreadItem from './bread/item.vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import defaultImg from '@/assets/images/200.png'
+import XtxCity from '@/components/city/index.vue'
+import XtxNumbox from '@/components/numbox/index.vue'
+import XtxButton from '@/components/button/index.vue'
 export default {
   install(app: App) {
     app.component('XtxSkeleton', XtxSkeleton)
@@ -14,7 +17,9 @@ export default {
     app.component('XtxMore', XtxMore)
     app.component('XtxBread', XtxBread)
     app.component('XtxBreadItem', XtxBreadItem)
-
+    app.component('XtxCity', XtxCity)
+    app.component('XtxNumbox', XtxNumbox)
+    app.component('XtxButton', XtxButton)
     // 自定义指令
     app.directive('lazy', {
       mounted(el: HTMLImageElement, binding) {
