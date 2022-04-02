@@ -1,6 +1,5 @@
-// import Message from '@/components/message'
-// import useStore from '@/store'
-
+import Message from '@/components/message'
+import useStore from '@/store'
 import axios, { AxiosError } from 'axios'
 export const baseURL = 'https://apipc-xiaotuxian-front.itheima.net/'
 const request = axios.create({
@@ -13,10 +12,10 @@ const request = axios.create({
 request.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
-    // const { user } = useStore()
-    // if (user.profile.token && config.headers) {
-    //   config.headers.Authorization = `Bearer ${user.profile.token}`
-    // }
+    const { user } = useStore()
+    if (user.profile.token && config.headers) {
+      config.headers.Authorization = `Bearer ${user.profile.token}`
+    }
     return config
   },
   function (error) {
@@ -33,11 +32,11 @@ request.interceptors.response.use(
   function (error: AxiosError) {
     // Message.error(error.response.data.message)
     // 对响应错误做点什么
-    // if (!error.response) {
-    //   Message.error('网络异常，请稍后重置')
-    // } else {
-    //   Message.error(error.response.data.message)
-    // }
+    if (!error.response) {
+      Message.error('网络异常，请稍后重置')
+    } else {
+      Message.error(error.response.data.message)
+    }
     return Promise.reject(error)
   }
 )

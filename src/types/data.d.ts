@@ -18,10 +18,9 @@ export type CategoryItem = {
   id: string
   name: string
   picture: string
+  open: boolean
   children: CategoryItem[]
   goods: CategoryGoods[]
-  // 自定义属性
-  open: boolean
 }
 
 // 轮播图数据类型

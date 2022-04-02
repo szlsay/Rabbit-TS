@@ -6,3 +6,17 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare namespace QC {
+  const Login: {
+    /**
+     * 检查QQ是否登录成功
+     */
+    check: () => boolean
+    /**
+     * 获取openId
+     */
+    getMe: (callback: (openId: string) => void) => void
+  }
+  const api: (api: 'get_user_info') => { success: (res: any) => void }
+}
