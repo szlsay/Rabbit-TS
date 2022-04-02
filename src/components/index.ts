@@ -10,6 +10,11 @@ import defaultImg from '@/assets/images/200.png'
 import XtxCity from '@/components/city/index.vue'
 import XtxNumbox from '@/components/numbox/index.vue'
 import XtxButton from '@/components/button/index.vue'
+import XtxCheckbox from '@/components/checkbox/index.vue'
+import XtxDialog from '@/components/dialog/index.vue'
+import XtxSwitch from '@/components/switch/index.vue'
+import XtxTabs from '@/components/tabs/index.vue'
+import XtxTabsPane from '@/components/tabs/pane.vue'
 export default {
   install(app: App) {
     app.component('XtxSkeleton', XtxSkeleton)
@@ -20,6 +25,12 @@ export default {
     app.component('XtxCity', XtxCity)
     app.component('XtxNumbox', XtxNumbox)
     app.component('XtxButton', XtxButton)
+    app.component('XtxCheckbox', XtxCheckbox)
+    app.component('XtxDialog', XtxDialog)
+    app.component('XtxSwitch', XtxSwitch)
+    app.component('XtxTabs', XtxTabs)
+    app.component('XtxTabsPane', XtxTabsPane)
+
     // 自定义指令
     app.directive('lazy', {
       mounted(el: HTMLImageElement, binding) {
