@@ -7,8 +7,14 @@ import '@/assets/styles/common.less'
 import router from '@/router'
 import { createPinia } from 'pinia'
 import XtxUI from '@/components'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const app = createApp(App)
+
+// 全局注册组件
+// app.component('XtxSkeleton', XtxSkeleton)
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 app.use(router)
 app.use(XtxUI)
-app.use(createPinia())
+app.use(pinia)
 app.mount('#app')
