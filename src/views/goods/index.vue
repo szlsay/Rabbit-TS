@@ -9,12 +9,12 @@ import GoodsName from './components/goods-name.vue'
 import GoodsSku from './components/goods-sku.vue'
 import GoodsDetail from './components/goods-detail.vue'
 import GoodsHot from './components/goods-hot.vue'
-// import Message from '@/components/message'
-// import { CartItem } from '@/types/cart'
+import Message from '@/components/message'
+import { CartItem } from '@/types/cart'
 // 组件中的数据： 组件销毁的时候，数据就销毁了
 // pinia中的数据：组件销毁，pinia的数据还在
 // 理论：组件销毁的时候，销毁pinia中的数据
-const { goods } = useStore()
+const { goods, cart } = useStore()
 const route = useRoute()
 watchEffect(() => {
   const id = route.params.id as string
@@ -47,33 +47,33 @@ const changeSku = (skuId: string) => {
 }
 const count = ref(1)
 
-// const addCart = async () => {
-//   if (!currentSkuId) {
-//     return Message.warning('请选择完整的商品信息')
-//   }
-//   // 当前需要添加的商品的sku
-//   const sku = info.value.skus.find((item) => item.id === currentSkuId)!
-//   const attrsText = sku.specs
-//     .map((item) => item.name + ':' + item.valueName)
-//     .join(' ')
-//   // console.log(attrsText)
-//   cart.addCart({
-//     // 本地添加
-//     id: info.value.id,
-//     name: info.value.name,
-//     picture: info.value.mainPictures[0],
-//     price: info.value.price,
-//     count: count.value,
-//     skuId: currentSkuId,
-//     attrsText: attrsText,
-//     selected: true,
-//     nowPrice: info.value.price,
-//     stock: info.value.inventory,
-//     isEffective: true,
-//   } as CartItem)
+const addCart = async () => {
+  if (!currentSkuId) {
+    return Message.warning('请选择完整的商品信息')
+  }
+  // 当前需要添加的商品的sku
+  const sku = info.value.skus.find((item) => item.id === currentSkuId)!
+  const attrsText = sku.specs
+    .map((item) => item.name + ':' + item.valueName)
+    .join(' ')
+  // console.log(attrsText)
+  cart.addCart({
+    // 本地添加
+    id: info.value.id,
+    name: info.value.name,
+    picture: info.value.mainPictures[0],
+    price: info.value.price,
+    count: count.value,
+    skuId: currentSkuId,
+    attrsText: attrsText,
+    selected: true,
+    nowPrice: info.value.price,
+    stock: info.value.inventory,
+    isEffective: true,
+  } as CartItem)
 
-//   Message.success('添加成功')
-// }
+  Message.success('添加成功')
+}
 </script>
 <template>
   <div class="xtx-goods-page" v-if="info.categories">
@@ -106,7 +106,7 @@ const count = ref(1)
             :max="info.inventory"
           ></XtxNumbox>
           <!-- 加入购物车 -->
-          <XtxButton style="margin-top: 20px" type="primary">
+          <XtxButton style="margin-top: 20px" type="primary" @click="addCart">
             加入购物车
           </XtxButton>
         </div>

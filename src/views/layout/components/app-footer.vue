@@ -1,4 +1,6 @@
-<script lang="ts" setup name="AppFooter"></script>
+<script lang="ts" setup name="AppFooter">
+//
+</script>
 
 <template>
   <footer class="app_footer">

@@ -1,5 +1,6 @@
 <script lang="ts" setup name="HomeBanner">
 import useStore from '@/store'
+
 const { home } = useStore()
 home.getBannerList()
 </script>

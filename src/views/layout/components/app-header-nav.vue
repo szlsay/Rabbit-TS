@@ -13,22 +13,22 @@ category.getAllCategory()
       @mousemove="category.show(item.id)"
       @mouseleave="category.hide(item.id)"
     >
-      <router-link
+      <RouterLink
         @click="category.hide(item.id)"
         :to="`/category/${item.id}`"
-        >{{ item.name }}</router-link
+        >{{ item.name }}</RouterLink
       >
       <!-- 新增++++++++ -->
       <div class="layer" :class="{ open: item.open }">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <router-link
+            <RouterLink
               @click="category.hide(item.id)"
               :to="`/category/sub/${sub.id}`"
             >
               <img :src="sub.picture" alt="" />
               <p>{{ sub.name }}</p>
-            </router-link>
+            </RouterLink>
           </li>
         </ul>
       </div>
@@ -55,10 +55,10 @@ category.getAllCategory()
       line-height: 32px;
       height: 32px;
       display: inline-block;
-      // &:hover {
-      //   color: @xtxColor;
-      //   border-bottom: 1px solid @xtxColor;
-      // }
+      &:hover {
+        color: @xtxColor;
+        border-bottom: 1px solid @xtxColor;
+      }
     }
     // 新增样式
     &:hover {
